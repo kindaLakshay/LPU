@@ -1,0 +1,2 @@
+n = int(input())
+arr = list(map(int, input("\n Now enter the elements: ").rstrip().split()))[:n]

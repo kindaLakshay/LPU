@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<!-- create a simple page with a textbox (a digit to be entered in it) and a button,
+such that on cicking the button, multiplication table (from 1 to 10) of that
+number should be displayed on the webpage -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Program to print the Time's Table of a Number</title>
+    <script>
+      function Table() {
+        var num1;
+        num1 = Number(document.getElementById("tablenum").value);
+        for (var i = 1; i <= 10; i++) {
+          var hTag = document.getElementById("printtable");
+          hTag.innerHTML += num1 * i + "<br/>";
+        }
+      }
+    </script>
+  </head>
+
+  <body style="text-align: center" bgcolor="grey">
+    <p>
+      <input type="text" id="tablenum" placeholder="Enter the Number here :)" />
+    </p>
+    <p>
+      <input
+        type="button"
+        value="Click here to get the table"
+        onclick="Table()"
+      />
+    </p>
+    <p id="printtable"></p>
+  </body>
+</html>

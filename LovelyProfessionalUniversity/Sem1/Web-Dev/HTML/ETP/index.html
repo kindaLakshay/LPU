@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+
+<!-- Design a table of 3 rows and 2 columns which contain an image, one link,
+ and one iframe inserted into it columns. iframe should display an image-->
+
+<html>
+    <head>
+        <style>
+            .grid-container{
+                display: grid;
+                grid-template-columns: auto auto;
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 10px;
+                row-gap: 20px;
+                column-gap: 10px;
+            }   
+            .grid-container> div {
+                background-color: yellowgreen;
+                padding: 20px;
+                text-align: center;
+                font-size: 30px;
+                border: 2px solid black;}
+
+        </style>
+    </head>
+    <body bgcolor="grey">
+        <h1>Table</h1>
+        <div class="grid-container">
+            <div class="item1">Image</div>
+            <div class="item2"><img src="img.png" height="500" width="500"></img></div>
+            <div class="item4">link</div>
+            <div class="item5"><a href="/home.html">click here</a></div>
+            <div class="item6">Iframe</div>
+            <div class="item3"><iframe width="1000" height="500" src="/img-2.png" title="Image" frameborder="0"></iframe></div>
+        </div>
+    </body>
+</html>
