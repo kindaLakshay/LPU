@@ -19,3 +19,4 @@ for(int i=1;i<=*x;i++)
 f1=f1*i;
 return f1;
 }
+
