@@ -1,0 +1,33 @@
+Pre-Submission Report: Medical Terminology Dictionary Management
+
+Introduction:
+The Medical Terminology Dictionary Management system is designed to be an efficient and user-friendly tool for medical professionals and students to store, access, and manage medical terms and their definitions. In the medical field, it is essential to have a clear understanding of medical terminology, as it is used to describe medical conditions, procedures, and treatments. The system will be implemented in C language using file handling concepts to store and manage data. The system will consist of five modules that will allow users to add, display, update, search, and delete medical terms and their definitions.
+
+Module 1: Add record to the file
+This module will allow the user to add a new medical term and its definition to the file. The user will be prompted to enter the term name, its definition, and the subfield in which it is used. The system will then add this record to the file. This module will ensure that users can easily add new terms to the dictionary, making it a comprehensive tool for medical professionals.
+
+Module 2: Display all the terms in alphabetical order
+This module will display all the medical terms and their definitions in alphabetical order. The user will be able to view the terms in a clear and organized manner. This module will enable users to quickly locate the term they are looking for and ensure that the dictionary is easy to use.
+
+Module 3: Update the definition
+This module will allow the user to update the definition of a medical term in the file. The user will be prompted to enter the name of the term to be updated and the new definition. The system will then update the record in the file with the new definition. This module will ensure that the dictionary is always up-to-date and accurate.
+
+Module 4: Search the term by its name
+This module will allow the user to search for a specific medical term by its name. The user will be prompted to enter the name of the term to be searched. The system will then search the file for the record containing that term and display its definition and subfield. This module will make it easy for users to find the definition of a specific term, saving them time and effort.
+
+Module 5: Delete the record
+This module will allow the user to delete a record from the file. The user will be prompted to enter the name of the term to be deleted. The system will then delete the record containing that term from the file. This module will ensure that the dictionary is maintained and accurate by removing any obsolete or incorrect terms.
+
+The project will be evaluated based on the following rubrics:
+
+Pre-submission report (5 marks)
+Each student is required to submit a handwritten report containing the project title, project description, and module explanation before mid-term. The report should be around 400-450 words. This report is intended to provide an overview of the project, its objectives, and the implementation of each module.
+
+Implementation (15 marks)
+Each module will be evaluated based on its functionality and efficiency. The implementation of each module should be accurate and efficient, allowing users to easily navigate the dictionary and locate the terms they need.
+
+Viva/Presentation (5 marks)
+The student will be required to present their project to the evaluator and answer questions related to their project. The presentation should demonstrate the student's understanding of the project and their ability to explain the implementation of each module.
+
+Uploading of final report on UMS (5 marks)
+The final report should be a soft copy that contains the project title, description, module explanation, DFD (level 0), programming code, and output snapshots. The final report should be submitted on time
