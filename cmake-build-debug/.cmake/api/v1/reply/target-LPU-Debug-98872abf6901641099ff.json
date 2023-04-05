@@ -81,6 +81,30 @@
 				83,
 				84
 			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				},
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				88
+			]
 		}
 	],
 	"id" : "LPU::@6890427a1f51a3e7e1df",
@@ -101,7 +125,7 @@
 				"role" : "libraries"
 			}
 		],
-		"language" : "C"
+		"language" : "CXX"
 	},
 	"name" : "LPU",
 	"nameOnDisk" : "LPU.exe",
@@ -215,7 +239,15 @@
 				81,
 				82,
 				83,
-				84
+				84,
+				88
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				89
 			]
 		}
 	],
@@ -696,6 +728,17 @@
 			"backtrace" : 1,
 			"path" : "README.md",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "LovelyProfessionalUniversity/Sem2/C_programming/jaat.cpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "LovelyProfessionalUniversity/Sem2/C_programming/jaat.h",
+			"sourceGroupIndex" : 3
 		}
 	],
 	"type" : "EXECUTABLE"

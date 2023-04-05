@@ -91,4 +91,4 @@ add_executable(LPU
         LovelyProfessionalUniversity/Sem2/C_programming/while_loop.c
         "LovelyProfessionalUniversity/Sem2/CodeRunner Custom Script/installation.md"
         "LovelyProfessionalUniversity/Sem2/CodeRunner Custom Script/setting.json"
-        README.md)
+        README.md LovelyProfessionalUniversity/Sem2/C_programming/jaat.cpp LovelyProfessionalUniversity/Sem2/C_programming/jaat.h)
