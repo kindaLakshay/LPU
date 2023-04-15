@@ -12,9 +12,10 @@ int main()
 
     printf("\nEnter input=");
     a=getchar();
-    fputc(a,p);
-    printf("\nSuccessfuly entered character into the file");
-    fclose(p);
+    
+    // fputc(a,p);
+    // printf("\nSuccessfuly entered character into the file");
+    // fclose(p);
 
     p=fopen("f1.txt","r");
     b=fgetc(p);
