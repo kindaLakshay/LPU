@@ -1,4 +1,5 @@
-//fseek()-->SEEK_CUR and rewind()#include<stdio.h>
+//fseek()-->SEEK_CUR and rewind()
+#include<stdio.h>
 
 int main() {
   FILE * fp;
