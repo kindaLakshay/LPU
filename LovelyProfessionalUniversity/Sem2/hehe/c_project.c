@@ -1,199 +1,218 @@
 #include <stdio.h>
-
 #include <stdlib.h>
-
 #include <string.h>
 
-#define MAX_TERMS 100
-// Structure to hold a medical term and its definition
-struct Term {
+// structure for storing medicine details
+struct med {
+    int id;
     char name[50];
-    char definition[100];
-    char subfield[50];
+    float price;
+    int qty;
 };
-// Function to add a new term to the dictionary file
-void add_term(struct Term * terms, int * num_terms) {
-    // Check if the maximum number of terms has been reached
-    if ( * num_terms >= MAX_TERMS) {
-        printf("Error: Maximum number of terms reached\n");
-        return;
-    }
-    // Get the details of the new term from the user
-    printf("Enter the name of the term: ");
-    scanf("%s", terms[ * num_terms].name);
-    printf("Enter the definition of the term: ");
-    scanf("%s", terms[ * num_terms].definition);
-    printf("Enter the subfield of the term: ");
-    scanf("%s", terms[ * num_terms].subfield);
-    // Increment the number of terms
-    ( * num_terms) ++;
-    // Write the new term to the dictionary file
-    FILE * fp = fopen("dictionary.txt", "a");
-    fprintf(fp, "%s,%s,%s\n", terms[ * num_terms - 1].name,
-        terms[ * num_terms - 1].definition, terms[ * num_terms - 1].subfield);
-    fclose(fp);
-    printf("Term added successfully\n");
+
+// function prototypes
+void display_meds(struct med[], int);
+void add_med(struct med[], int*);
+void delete_med(struct med[], int*);
+void search_med(struct med[], int);
+void update_med(struct med[], int);
+void save_meds(struct med[], int);
+int load_meds(struct med[]);
+
+int main() {
+    struct med db[100];  // maximum 100 medicines can be stored
+    int n = load_meds(db);
+
+    int opt;
+    do {
+        printf("project on c by roll number 70,69,68\n");
+        printf("1 for display med details\n");
+        printf("2 for add new med\n");
+        printf("3. delete med details\n");
+        printf("4. search a particular med\n");
+        printf("5. update med details\n");
+        printf("6. exit\n");
+        printf("enter option: ");
+        scanf("%d", &opt);
+
+        switch (opt) {
+            case 1:
+                display_meds(db, n);
+                break;
+            case 2:
+                add_med(db, &n);
+                break;
+            case 3:
+                delete_med(db, &n);
+                break;
+            case 4:
+                search_med(db, n);
+                break;
+            case 5:
+                update_med(db, n);
+                break;
+            case 6:
+                save_meds(db, n);
+                printf("exiting program...\n");
+                break;
+            default:
+                printf("invalid option. please try again.\n");
+        }
+    } while (opt != 6);
+
+    return 0;
 }
-// Function to display all the terms in alphabetical order
-void display_terms(struct Term * terms, int num_terms) {
-    // Sort the terms in alphabetical order
-    for (int i = 0; i < num_terms - 1; i++) {
-        for (int j = i + 1; j < num_terms; j++) {
-            if (strcmp(terms[i].name, terms[j].name) > 0) {
-                struct Term temp = terms[i];
-                terms[i] = terms[j];
-                terms[j] = temp;
+
+// function to display the details of all medicines in the database
+void display_meds(struct med db[], int n) {
+    if (n == 0) {
+        printf("no meds in the database.\n");
+    } else {
+        printf("med details:\n");
+        printf("id\tname\tprice\tqty\n");
+        for (int i = 0; i < n; i++) {
+            printf("%d\t%s\t%.2f\t%d\n", db[i].id, db[i].name, db[i].price, db[i].qty);
+        }
+    }
+}
+
+// function to add a new medicine to the database
+void add_med(struct med db[], int* n) {
+    if (*n == 100) {
+        printf("database is full. no more meds can be added.\n");
+    } else {
+        printf("enter details of new med:\n");
+        printf("id: ");
+        scanf("%d", &db[*n].id);
+        printf("name: ");
+        scanf("%s", db[*n].name);
+        printf("price: ");
+        scanf("%f", &db[*n].price);
+        printf("quantity: ");
+        scanf("%d", &db[*n].qty);
+        (*n)++;
+        printf("med added successfully.\n");
+    }
+}
+
+// function to delete a medicine from the database
+void delete_med(struct med db[], int* n) {
+    int id;
+    printf("enter id of med to be deleted: ");
+    scanf("%d", &id);
+    int i;
+    for (i = 0; i < *n; i++) {
+        if (db[i].id == id) {
+            break;
+        }
+    }
+    if (i == *n) {
+        printf("med not found.\n");
+    } else {
+        // shift all elements to the left
+        for (int j = i; j < *n - 1; j++) {
+            db[j] = db[j+1];
+        }
+        (*n)--;
+        printf("med deleted successfully.\n");
+    }
+}
+
+// function to search for a medicine by name or id
+void search_med(struct med db[], int n) {
+    int opt;
+    printf("search by:\n");
+    printf("1. name\n");
+    printf("2. id\n");
+    printf("enter option: ");
+    scanf("%d", &opt);
+    if (opt == 1) {
+        char name[50];
+        printf("enter name of med: ");
+        scanf("%s", name);
+        int found = 0;
+        for (int i = 0; i < n; i++) {
+            if (strcmp(db[i].name, name) == 0) {
+                printf("id\tname\tprice\tqty\n");
+                printf("%d\t%s\t%.2f\t%d\n", db[i].id, db[i].name, db[i].price, db[i].qty);
+                found = 1;
+                break;
             }
         }
-    }
-    // Display the terms
-    printf("Terms in alphabetical order:\n");
-    for (int i = 0; i < num_terms; i++) {
-        printf("%s: %s (%s)\n", terms[i].name, terms[i].definition,
-            terms[i].subfield);
-    }
-}
-// Function to update the definition of a term
-void update_term(struct Term * terms, int num_terms) {
-    // Get the name of the term to update from the user
-    char name[50];
-    printf("Enter the name of the term to update: ");
-    scanf("%s", name);
-    // Search for the term in the array
-    int index = -1;
-    for (int i = 0; i < num_terms; i++) {
-        if (strcmp(terms[i].name, name) == 0) {
-            index = i;
-            break;
+        if (!found) {
+            printf("med not found.\n");
         }
-    }
-    // If the term is found, update its definition
-    if (index != -1) {
-        printf("Enter the new definition of the term: ");
-        scanf("%s", terms[index].definition);
-        // Update the term in the dictionary file
-        FILE * fp = fopen("dictionary.txt", "w");
-        for (int i = 0; i < num_terms; i++) {
-            fprintf(fp, "%s,%s,%s\n", terms[i].name,
-                terms[i].definition, terms[i].subfield);
+    } else if (opt == 2) {
+        int id;
+        printf("enter id of med: ");
+        scanf("%d", &id);
+        int found = 0;
+        for (int i = 0; i < n; i++) {
+            if (db[i].id == id) {
+                printf("id\tname\tprice\tqty\n");
+                printf("%d\t%s\t%.2f\t%d\n", db[i].id, db[i].name, db[i].price, db[i].qty);
+                found = 1;
+                break;
+            }
         }
-        fclose(fp);
-        printf("Term updated successfully\n");
+        if (!found) {
+            printf("med not found.\n");
+        }
     } else {
-        printf("Error: Term not found\n");
+        printf("invalid option.\n");
     }
 }
-// Function to search for a term by its name
-void search_term(struct Term * terms, int num_terms) {
-    // Get the name of the term to search for from the user
-    char name[50];
-    printf("Enter the name of the term to search for: ");
-    scanf("%s", name);
-    // Search for the term in the array
-    int index = -1;
-    for (int i = 0; i < num_terms; i++) {
-        if (strcmp(terms[i].name, name) == 0) {
-            index = i;
-            break;
-        }
-    }
-    // If the term is found, display its details
-    if (index != -1) {
-        printf("%s: %s (%s)\n", terms[index].name,
-            terms[index].definition, terms[index].subfield);
-    } else {
-        printf("Error: Term not found\n");
-    }
-}
-// Function to delete a term from the dictionary file
-void delete_term(struct Term * terms, int * num_terms) {
-    // Get the name of the term to delete from the user
-    char name[50];
-    printf("Enter the name of the term to delete: ");
-    scanf("%s", name);
-    // Search for the term in the array
-    int index = -1;
-    for (int i = 0; i < * num_terms; i++) {
-        if (strcmp(terms[i].name, name) == 0) {
-            index = i;
-            break;
-        }
-    }
-    // If the term is found, delete it from the array and the dictionary file
-    if (index != -1) {
-        // Shift the remaining terms in the array
-        for (int i = index; i < * num_terms - 1; i++) {
-            terms[i] = terms[i + 1];
-        }
-        // Decrement the number of terms
-        ( * num_terms) --;
-        // Write the updated terms to the dictionary file
-        FILE * fp = fopen("dictionary.txt", "w");
-        for (int i = 0; i < * num_terms; i++) {
-            fprintf(fp, "%s,%s,%s\n", terms[i].name,
-                terms[i].definition, terms[i].subfield);
-        }
-        fclose(fp);
-        printf("Term deleted successfully\n");
-    } else {
-        printf("Error: Term not found\n");
-    }
-}
-int main() {
-    // Array to hold the terms
-    struct Term terms[MAX_TERMS];
-    int num_terms = 0;
-    // Read the terms from the dictionary file
-    FILE * fp = fopen("dictionary.txt", "r");
-    if (fp != NULL) {
-        char line[200];
-        while (fgets(line, sizeof(line), fp) != NULL) {
-            char * name = strtok(line, ",");
-            char * definition = strtok(NULL, ",");
-            char * subfield = strtok(NULL, ",");
-            strcpy(terms[num_terms].name, name);
-            strcpy(terms[num_terms].definition, definition);
-            strcpy(terms[num_terms].subfield, subfield);
-            num_terms++;
-        }
-        fclose(fp);
-    }
-    // Menu loop
-    int choice;
-    do {
-        printf("\nMedical Terminology Dictionary Management\n");
-        printf("1. Add term to the file\n");
-        printf("2. Display all the terms in alphabetical order\n");
-        printf("3. Update the definition\n");
-        printf("4. Search the term by its name\n");
-        printf("5. Delete the record\n");
-        printf("6. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", & choice);
-        switch (choice) {
-        case 1:
-            add_term(terms, & num_terms);
-            break;
-        case 2:
-            display_terms(terms, num_terms);
-            break;
-        case 3:
-            update_term(terms, num_terms);
-            break;
-        case 4:
-            search_term(terms, num_terms);
-            break;
-        case 5:
-            delete_term(terms, & num_terms);
-            break;
-        case 6:
-            printf("Exiting...\n");
-            break;
-        default:
-            printf("Error: Invalid choice\n");
-            break;
-        }   
 
-    } while (choice != 6);
-    return 0;
+// function to update the details of a medicine
+void update_med(struct med db[], int n) {
+    int id;
+    printf("enter id of med to be updated: ");
+    scanf("%d", &id);
+    int found = 0;
+    for (int i = 0; i < n; i++) {
+        if (db[i].id == id) {
+            printf("enter new details of med:\n");
+            printf("name: ");
+            scanf("%s", db[i].name);
+            printf("price: ");
+            scanf("%f", &db[i].price);
+            printf("quantity: ");
+            scanf("%d", &db[i].qty);
+            printf("med updated successfully.\n");
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("med not found.\n");
+    }
+}
+
+// function to save the details of all medicines in a file
+void save_meds(struct med db[], int n) {
+    FILE* fp = fopen("meds.txt", "wb");
+    if (fp == NULL) {
+        printf("error opening file.\n");
+    } else {
+        fwrite(&n, sizeof(int), 1, fp);
+        fwrite(db, sizeof(struct med), n, fp);
+        fclose(fp);
+        printf("med details saved to file successfully.\n");
+    }
+}
+
+// function to load the details of all medicines from a file
+int load_meds(struct med db[]) {
+    FILE* fp = fopen("meds.txt", "rb");
+    if (fp == NULL) {
+        // no file exists yet, so return 0
+        return 0;
+    } else {
+        int n;
+        fread(&n, sizeof(int), 1, fp);
+        fread(db, sizeof(struct med), n, fp);
+        fclose(fp);
+        printf("med details loaded from file successfully.\n");
+        return n;
+    }
 }
