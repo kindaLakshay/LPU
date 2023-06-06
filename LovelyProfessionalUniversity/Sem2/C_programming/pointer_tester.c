@@ -1,8 +1,8 @@
-#include <stdio.h>
-    int main()
-    {
-        int i = 10;
-        void *p = &i;
-        printf("%f\n", *(float*)p);
-        return 0;
-    }
+#include<stdio.h>
+void m(){
+    printf("hi");
+}
+void main(){
+    m();
+    
+}
